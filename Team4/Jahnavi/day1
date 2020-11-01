@@ -11,7 +11,9 @@ public:
         return (n*(n+1)/2)-sum;
     }
 }
-q2. remove duplicates from sorted array   https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+q2. remove duplicates from sorted array  
+https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
