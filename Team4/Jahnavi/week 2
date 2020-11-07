@@ -1,0 +1,205 @@
+Q1. Middle of Linked List
+https://leetcode.com/problems/middle-of-the-linked-list/
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+         if(head==NULL) return NULL;
+   ListNode*sp=head;
+   ListNode*fp=head;
+   while(fp!=NULL&&fp->next!=NULL) 
+   {
+       sp=sp->next;
+       fp=fp->next->next;
+   }
+   return sp;
+        
+    }
+};
+Q.2 Reverse Linked List
+https://leetcode.com/problems/reverse-linked-list/
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode*prev=NULL,*cur=head,*nxt;
+        while(cur!=NULL)
+        {
+            nxt=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=nxt;
+
+        }
+        return prev;
+
+    }
+};
+Q.3 Intersection of Two Linked Lists
+https://leetcode.com/problems/intersection-of-two-linked-lists/
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *h1, ListNode *h2) {
+        ListNode*t1=h1;
+    ListNode*t2=h2;
+    int n1=0,n2=0;
+    while(t1!=NULL) 
+    {
+        n1++;
+        t1=t1->next;
+    }
+    while(t2!=NULL) 
+    {
+        n2++;
+        t2=t2->next;
+    }
+    cout<<n1<<" "<<n2;
+    ListNode*big_head;
+    ListNode*small_head;
+    if(n1>n2)  {big_head=h1; small_head=h2;}
+    else { big_head=h2; small_head=h1;}
+    int k=abs(n1-n2);
+    int a=0;
+  //  int flag=-1;
+        ListNode*flag=NULL;
+   // cout<<endl;
+    //cout<<big_head->data<<" "<<small_head->data;
+    while(a<k) 
+    {  if(big_head==NULL) {return flag;}
+        big_head=big_head->next;
+        a++;
+    }
+        
+  //  cout<<endl;
+  // cout<<big_head->val;
+    
+    while(small_head!=NULL&&big_head!=NULL) 
+    { 
+        if(big_head==small_head) {
+            flag=big_head;
+            break;
+        }
+       big_head=big_head->next;
+        small_head=small_head->next;
+    }
+       // cout<<big_head->val;
+    return flag;
+    }
+};
+Q.4 Palindrome Linked List
+https://leetcode.com/problems/palindrome-linked-list/
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+      stack<int>st;
+        ListNode*temp=head;
+        while(temp!=NULL)
+        {
+            st.push(temp->val);
+            temp=temp->next;
+        }
+        ListNode*t=head;
+
+        //int falg=0;
+        while(t!=NULL)
+        {    //cout<<t->data<<" "<<st.top();
+            if(t->val!=st.top())
+            {
+                // cout<<t->data<<" "<<st.top();
+                  return false;
+                  }
+
+                st.pop();
+                t=t->next;
+        }
+
+        return true;
+  
+    }
+};
+Q.5 Convert Binary Number in a Linked List to Integer
+https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/
+class Solution {
+public:
+    int length(ListNode*head) 
+    {
+        int l=0;
+        ListNode*temp=head;
+        while(temp!=NULL) 
+        {
+            l++;
+            temp=temp->next;
+        }
+        return l;
+    }
+    int getDecimalValue(ListNode* head) {
+        int l=length(head);
+        ListNode*temp=head;
+        int ans=0;
+        while(temp!=NULL) 
+        {
+          ans=ans+  temp->val*pow(2,l-1);
+            l--;
+            temp=temp->next;
+        }
+        return ans;
+    }
+};
+Q.6 Sort List
+https://leetcode.com/problems/sort-list/
+class Solution {
+public:
+    ListNode* MidSplit(ListNode* hd){
+        if (hd==NULL||hd->next==NULL) return NULL;
+        ListNode *sp=hd, *fp=hd;
+        while (fp->next!=NULL && fp->next->next!=NULL){
+            sp=sp->next;
+            fp=fp->next->next;
+        }
+        ListNode* temp=sp->next;
+        sp->next=NULL;
+        return temp;
+    }
+     ListNode* Merge(ListNode* hd1, ListNode* hd2){
+        if (hd1==NULL&&hd2==NULL) return NULL;
+        if (hd1==NULL) return hd2;
+        if (hd2==NULL) return hd1;
+        if (hd1->val<hd2->val){
+            hd1->next=Merge(hd1->next,hd2);
+            return hd1;
+        } else {
+            hd2->next=Merge(hd1,hd2->next);
+            return hd2;
+        }
+    }
+
+
+    ListNode* sortList(ListNode* hd) {
+         if (hd==NULL||hd->next==NULL) return hd;
+        ListNode* hd2=MidSplit(hd);
+        hd=sortList(hd);
+        hd2=sortList(hd2);
+        return Merge(hd,hd2);
+    }
+};
+Q.7 Odd Even Linked List
+https://leetcode.com/problems/odd-even-linked-list/
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+     if(head==nullptr)    return head;
+        ListNode*ans=head;
+        ListNode*odd=head;
+        ListNode*even=head->next;
+        ListNode*connectNode=head->next;
+        while(odd!=NULL&&even!=NULL) 
+        {
+            ListNode*t=even->next;
+            if(t==NULL) break;
+            odd->next=even->next;
+            odd=odd->next;
+            even->next=odd->next;
+            even=even->next;
+        }
+        odd->next=connectNode;
+        return ans;
+    }
+};
